@@ -23,7 +23,7 @@ const AdminLogin = () => {
       toast.success(data.message);
       setTimeout(() => {
         window.location.href = "/admin-dashboard";
-      }, 1000);
+      }, 500);
     } else {
       toast.error(data.message);
     }
