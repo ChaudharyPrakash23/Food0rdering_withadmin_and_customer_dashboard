@@ -1,13 +1,17 @@
-import React from 'react'
-import AdminSidebar from '../components/AdminSidebar'
-import AdminLayout from '../components/AdminLayout'
+import React from "react";
+import AdminSidebar from "../components/AdminSidebar";
+import AdminLayout from "../components/AdminLayout";
 
 function AdminDashboard() {
   return (
     <div>
-        <AdminLayout/>
+      <AdminLayout>
+        <div>
+          <h2 className="text-center">Admin Dashboard</h2>
+        </div>
+      </AdminLayout>
     </div>
-  )
+  );
 }
 
-export default AdminDashboard
+export default AdminDashboard;

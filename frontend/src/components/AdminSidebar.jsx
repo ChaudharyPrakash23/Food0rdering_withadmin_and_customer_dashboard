@@ -10,6 +10,8 @@ import {
   FaThLarge,
   FaUsers,
   FaUtensils,
+  FaChevronUp,
+  FaChevronDown,
 } from "react-icons/fa";
 const AdminSidebar = () => {
   const [openMenu, setOpenMenu] = useState({
@@ -33,7 +35,7 @@ const AdminSidebar = () => {
         <h6 className="fw-semibold mb-0">Admin</h6>
       </div>
       <div className="list-group list-group-flush">
-        <Link className="list-group-item list-group-item-action bg-dark text-white">
+        <Link className="list-group-item list-group-item-action bg-dark text-white ">
           <FaThLarge className="me-3" /> Dashboard
         </Link>
         <div className="list-group list-group-flush">
@@ -43,34 +45,34 @@ const AdminSidebar = () => {
         </div>
         <button
           onClick={() => toggleMenu("category")}
-          className="list-group-item list-group-item-action bg-dark text-white"
+          className="list-group-item list-group-item-action bg-dark text-white border-0"
         >
           <FaPizzaSlice/>
-          Food Category
+          Food Category{openMenu.category?<FaChevronUp/>:<FaChevronDown/>}
         </button>
         {openMenu.category && (
           <div className="ps-4 mx-1 py-1">
-            <Link className="list-group-item list-group-item-action bg-dark text-white py-1">
+            <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
               <FaPlus className="me-3" /> Add Category
             </Link>
-            <Link className="list-group-item list-group-item-action bg-dark text-white py-1">
+            <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
               <FaLayerGroup className="me-3" /> Manage Catgory
             </Link>
           </div>
         )}
         <button
           onClick={() => toggleMenu("food")}
-          className="list-group-item list-group-item-action bg-dark text-white"
+          className="list-group-item list-group-item-action bg-dark text-white border-0"
         >
           <FaUtensils />
           Food Item
         </button>
         {openMenu.food && (
           <div className="ps-4 mx-1 py-1">
-            <Link className="list-group-item list-group-item-action bg-dark text-white py-1">
+            <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
               <FaPlus className="me-3" /> Add Food Item
             </Link>
-            <Link className="list-group-item list-group-item-action bg-dark text-white py-1">
+            <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
               <FaLayerGroup className="me-3" /> Manage Food Item
             </Link>
           </div>
