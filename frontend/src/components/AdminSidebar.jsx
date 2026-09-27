@@ -12,6 +12,12 @@ import {
   FaUtensils,
   FaChevronUp,
   FaChevronDown,
+  FaList,
+  FaCheckCircle,
+  FaShoppingBag,
+  FaTruck,
+  FaTimesCircle,
+  FaFile,
 } from "react-icons/fa";
 const AdminSidebar = () => {
   const [openMenu, setOpenMenu] = useState({
@@ -35,7 +41,7 @@ const AdminSidebar = () => {
         <h6 className="fw-semibold mb-0">Admin</h6>
       </div>
       <div className="list-group list-group-flush">
-        <Link className="list-group-item list-group-item-action bg-dark text-white ">
+        <Link className="list-group-item list-group-item-action bg-dark text-white border-0">
           <FaThLarge className="me-3" /> Dashboard
         </Link>
         <div className="list-group list-group-flush">
@@ -45,10 +51,10 @@ const AdminSidebar = () => {
         </div>
         <button
           onClick={() => toggleMenu("category")}
-          className="list-group-item list-group-item-action bg-dark text-white border-0"
+          className="list-group-item list-group-item-action bg-dark text-white border-0 d-flex align-items-center gap-3"
         >
-          <FaPizzaSlice/>
-          Food Category{openMenu.category?<FaChevronUp/>:<FaChevronDown/>}
+          <FaPizzaSlice />
+           Food Category{openMenu.category ? <FaChevronUp /> : <FaChevronDown />}
         </button>
         {openMenu.category && (
           <div className="ps-4 mx-1 py-1">
@@ -62,11 +68,13 @@ const AdminSidebar = () => {
         )}
         <button
           onClick={() => toggleMenu("food")}
-          className="list-group-item list-group-item-action bg-dark text-white border-0"
+          className="list-group-item list-group-item-action bg-dark text-white border-0 d-flex align-items-center gap-3"
         >
           <FaUtensils />
           Food Item
+          {openMenu.food ? <FaChevronUp /> : <FaChevronDown />}
         </button>
+
         {openMenu.food && (
           <div className="ps-4 mx-1 py-1">
             <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
@@ -77,6 +85,45 @@ const AdminSidebar = () => {
             </Link>
           </div>
         )}
+        <button
+          onClick={() => toggleMenu("order")}
+          className="list-group-item list-group-item-action bg-dark text-white border-0 d-flex align-items-center gap-3"
+        >
+          <FaList />
+          Orders
+          {openMenu.order? <FaChevronUp /> : <FaChevronDown />}
+        </button>
+
+        {openMenu.order && (
+          <div className="ps-4 mx-1 py-1">
+            <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
+              <FaPlus className="me-3" /> New Orders
+            </Link>
+            <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
+              <FaUtensils className="me-3" /> Being Prepared
+            </Link>
+            <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
+              <FaCheckCircle className="me-3" /> Confirmed
+            </Link>
+            <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
+              <FaShoppingBag className="me-3" /> Pick up
+            </Link>
+            <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
+              <FaTruck className="me-3" /> Delivered
+            </Link>
+            <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
+              <FaTimesCircle className="me-3" /> Cancelled
+            </Link>
+            <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
+              <FaList className="me-3" /> All Orders
+            </Link>
+          </div>
+        )}
+        <div className="list-group list-group-flush">
+          <Link className="list-group-item list-group-item-action bg-dark text-white">
+            <FaFile className="me-3" /> Between Dates Report
+          </Link>
+        </div>
         <div className="list-group list-group-flush">
           <Link className="list-group-item list-group-item-action bg-dark text-white">
             <FaSearch className="me-3" /> Search

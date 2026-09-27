@@ -21,6 +21,7 @@ const AdminLogin = () => {
     const data = await response.json();
     if (response.status === 200) {
       toast.success(data.message);
+      localStorage.setItem("adminuser",username)
       setTimeout(() => {
         window.location.href = "/admin-dashboard";
       }, 500);
