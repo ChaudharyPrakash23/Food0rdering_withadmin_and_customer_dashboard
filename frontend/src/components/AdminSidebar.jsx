@@ -61,7 +61,7 @@ const AdminSidebar = () => {
             <Link to= "/add-category" className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
               <FaPlus className="me-3" /> Add Category
             </Link>
-            <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
+            <Link to="/manage-category" className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
               <FaLayerGroup className="me-3" /> Manage Catgory
             </Link>
           </div>

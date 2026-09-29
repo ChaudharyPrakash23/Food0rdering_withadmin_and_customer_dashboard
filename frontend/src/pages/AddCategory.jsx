@@ -20,6 +20,7 @@ const AddCategory = () => {
       const data = await response.json();
       if (response.status === 201) {
         toast.success(data.message);
+        setCategoryName("")
       } else {
         toast.error(data.message);
       }
