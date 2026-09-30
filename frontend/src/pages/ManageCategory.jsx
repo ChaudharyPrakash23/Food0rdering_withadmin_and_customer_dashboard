@@ -1,19 +1,33 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AdminLayout from "../components/AdminLayout";
 import { FaDatabase, FaEdit, FaListAlt, FaTrash } from "react-icons/fa";
 
 const ManageCategory = () => {
   const BASEURL = import.meta.env.VITE_DJANGO_BASE_URL;
-  const [categories,setCategories]=useState([])
+  const [categories, setCategories] = useState([]);
+  const [allcategories, setAllCategories] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetch(`${BASEURL}/api/all-categories/`)
-      .then(res=>res.json())
-      .then(data=>{
-        setCategories(data)
-      })
-  },[])
+      .then((res) => res.json())
+      .then((data) => {
+        setCategories(data);
+        setAllCategories(data);
+      });
+  }, []);
+
+  const handleSearch = (s) => {
+    const keyword = s.toLowerCase();
+    if (!keyword) {
+      setCategories(allcategories);
+    } else {
+      const filtered = allcategories.filter((c) =>
+        c.category_name.toLowerCase().includes(keyword),
+      );
+      setCategories(filtered);
+    }
+  };
   return (
     <AdminLayout>
       <div>
@@ -23,10 +37,16 @@ const ManageCategory = () => {
         </h3>
         <h5 className="text-end text-muted">
           <FaDatabase className="me-2" />
-          Total Categories<span className="ms-2 badge bg-success">{categories.length}</span>
+          Total Categories
+          <span className="ms-2 badge bg-success">{categories.length}</span>
         </h5>
         <div className="mb-3">
-            <input type="text" className="form-control w-50" placeholder="search by category name..."/>
+          <input
+            type="text"
+            className="form-control w-50"
+            placeholder="search by category name..."
+            onChange={(e) => handleSearch(e.target.value)}
+          />
         </div>
         <table className="table table-bordered table-hover table-stripped">
           <thead className="table-dark">
@@ -38,22 +58,22 @@ const ManageCategory = () => {
             </tr>
           </thead>
           <tbody>
-            {categories.map((category,index)=>(
-            <tr key={category.id}>
-              <td>{index}</td>
-              <td>{category.category_name}</td>
-              <td>{new Date(category.creation_date).toDateString()}</td>
-              <td className="gap-1 flex items-center">
-                <Link className="btn btn-sm btn-primary me-2">
-                  <FaEdit className="me-1" />
-                  Edit
-                </Link>
-                <button className="btn btn-sm btn-danger">
-                  <FaTrash className="me-1" />
-                  Delete
-                </button>
-              </td>
-            </tr>
+            {categories.map((category, index) => (
+              <tr key={category.id}>
+                <td>{index + 1}</td>
+                <td>{category.category_name}</td>
+                <td>{new Date(category.creation_date).toDateString()}</td>
+                <td className="gap-1 flex items-center">
+                  <Link className="btn btn-sm btn-primary me-2">
+                    <FaEdit className="me-1" />
+                    Edit
+                  </Link>
+                  <button className="btn btn-sm btn-danger">
+                    <FaTrash className="me-1" />
+                    Delete
+                  </button>
+                </td>
+              </tr>
             ))}
           </tbody>
         </table>
