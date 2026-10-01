@@ -77,7 +77,7 @@ const AdminSidebar = () => {
 
         {openMenu.food && (
           <div className="ps-4 mx-1 py-1">
-            <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
+            <Link to="/add-food" className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
               <FaPlus className="me-3" /> Add Food Item
             </Link>
             <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">

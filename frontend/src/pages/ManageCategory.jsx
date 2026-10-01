@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AdminLayout from "../components/AdminLayout";
-import { FaDatabase, FaEdit, FaListAlt, FaTrash } from "react-icons/fa";
+import { FaDatabase, FaEdit, FaFileCsv, FaListAlt, FaTrash } from "react-icons/fa";
+import {CSVLink} from 'react-csv';
 
 const ManageCategory = () => {
   const BASEURL = import.meta.env.VITE_DJANGO_BASE_URL;
@@ -40,13 +41,16 @@ const ManageCategory = () => {
           Total Categories
           <span className="ms-2 badge bg-success">{categories.length}</span>
         </h5>
-        <div className="mb-3">
+        <div className="mb-3 d-flex justify-content-between">
           <input
             type="text"
             className="form-control w-50"
             placeholder="search by category name..."
             onChange={(e) => handleSearch(e.target.value)}
           />
+          <CSVLink data={categories} className="btn btn-success" filename="category_list">
+           <FaFileCsv/> Export to CSV
+          </CSVLink>
         </div>
         <table className="table table-bordered table-hover table-stripped">
           <thead className="table-dark">
