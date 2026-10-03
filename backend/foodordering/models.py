@@ -24,7 +24,7 @@ class Food(models.Model):
     item_price=models.DecimalField(max_digits=10,decimal_places=2)
     item_description=models.TextField(max_length=500,null=True)
     image=models.ImageField(upload_to='food_images/',null=True)
-    item_quantity=models.PositiveBigIntegerField(default=1)
+    item_quantity=models.CharField(max_length=50)
     is_available=models.BooleanField(default=True)
 
     def __str__(self):

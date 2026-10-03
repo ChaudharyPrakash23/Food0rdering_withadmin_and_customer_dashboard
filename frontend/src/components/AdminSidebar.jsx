@@ -80,7 +80,7 @@ const AdminSidebar = () => {
             <Link to="/add-food" className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
               <FaPlus className="me-3" /> Add Food Item
             </Link>
-            <Link className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
+            <Link to="/manage-food" className="list-group-item list-group-item-action bg-dark text-white py-1 border-0">
               <FaLayerGroup className="me-3" /> Manage Food Item
             </Link>
           </div>
