@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view, parser_classes
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
-from .models import Category
+from .models import Category,Food
 from .serializers import CategorySerializer,FoodSerializer
 from rest_framework.parsers import MultiPartParser,FormParser
 
@@ -40,3 +40,9 @@ def add_food_item(request):
         return Response({"message":"Food Item has been added"},status=201)
     print(serializer.errors)
     return Response(serializer.errors, status=400)
+
+@api_view(['GET'])
+def list_foods(request):
+    foods=Food.objects.all()
+    serializer=FoodSerializer(foods,many=True)
+    return Response(serializer.data)
