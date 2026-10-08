@@ -9,8 +9,9 @@ import {
   FaUtensilSpoon,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import '../styles/Layout.css'
 
-const PublicLayout = ({children}) => {
+const PublicLayout = ({ children }) => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
@@ -66,9 +67,7 @@ const PublicLayout = ({children}) => {
           </div>
         </div>
       </nav>
-        <div>
-            {children}
-        </div>
+      <div>{children}</div>
 
       <footer className="text-center py-3 mt-5">
         <div className="container">
