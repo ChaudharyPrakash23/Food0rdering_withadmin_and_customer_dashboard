@@ -19,15 +19,15 @@ const Home = () => {
             Discover delicious meals from your favorite restaurants, delivered
             fresh and fast to your doorstep.
           </p>
-          <form method="GET" action={"/search"}>
+          <form method="GET" action="/search" className="hero-search">
             <input
               type="text"
               name="q"
-              placeholder="Qucik search ..."
-              className='from-control'
-            ></input>
-            <button className="btn btn-warning px-4 py-2 fw-bold">
-              Explore Food →
+              placeholder="Search food..."
+              className="hero-search-input"
+            />
+            <button type="submit" className="hero-search-btn">
+              Search
             </button>
           </form>
         </div>

@@ -3,6 +3,7 @@ import { FaUser, FaLock, FaSignInAlt } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/admin.css";
+import PublicLayout from "../components/PublicLayout";
 
 const AdminLogin = () => {
   const BASEURL = import.meta.env.VITE_DJANGO_BASE_URL;
@@ -31,6 +32,7 @@ const AdminLogin = () => {
   };
 
   return (
+    <PublicLayout>
     <div
       className="d-flex justify-content-center align-items-center vh-100"
       style={{
@@ -84,6 +86,7 @@ const AdminLogin = () => {
       </div>
       <ToastContainer autoClose={2000} position="top-right" />
     </div>
+    </PublicLayout>
   );
 };
 

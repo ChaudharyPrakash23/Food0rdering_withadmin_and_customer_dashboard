@@ -33,7 +33,7 @@ const PublicLayout = ({ children }) => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item mx-1">
-                <Link to="#" className="nav-link active">
+                <Link to="/" className="nav-link active">
                   <FaHome className="me-1" />
                   Home
                 </Link>
@@ -59,7 +59,7 @@ const PublicLayout = ({ children }) => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link">
+                <Link to="/admin-login"className="nav-link">
                   <FaUserShield className="me-1" /> Admin-Login
                 </Link>
               </li>
@@ -69,9 +69,9 @@ const PublicLayout = ({ children }) => {
       </nav>
       <div>{children}</div>
 
-      <footer className="text-center py-3 mt-5">
+      <footer className="text-center py-1 mt-3">
         <div className="container">
-          <p className="">
+          <p className="mb-0">
             &copy;{new Date().getFullYear()} Prakash Chaudhary.All rights
             reserved
           </p>
