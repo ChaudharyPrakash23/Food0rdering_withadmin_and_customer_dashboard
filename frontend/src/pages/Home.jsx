@@ -1,6 +1,7 @@
 import React from "react";
 import PublicLayout from "../components/PublicLayout";
 import "../styles/Home.css";
+
 const Home = () => {
   return (
     <PublicLayout>
@@ -19,13 +20,16 @@ const Home = () => {
             Discover delicious meals from your favorite restaurants, delivered
             fresh and fast to your doorstep.
           </p>
-          <form method="GET" action="/search" className="hero-search">
+
+          <form method="GET" action="/search-food" className="hero-search">
             <input
               type="text"
               name="q"
               placeholder="Search food..."
               className="hero-search-input"
+              style={{ fontStyle: "italic" }}
             />
+
             <button type="submit" className="hero-search-btn">
               Search
             </button>
@@ -35,4 +39,5 @@ const Home = () => {
     </PublicLayout>
   );
 };
+
 export default Home;
