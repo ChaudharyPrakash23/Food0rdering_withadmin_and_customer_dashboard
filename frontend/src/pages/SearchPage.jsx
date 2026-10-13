@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PublicLayout from "../components/PublicLayout";
 import { Link, useLocation } from "react-router-dom";
-import { FaShoppingBasket } from "react-icons/fa";
+import { FaShoppingBasket, FaTimes } from "react-icons/fa";
 import "../styles/Home.css";
 
 const SearchPage = () => {
@@ -59,10 +59,19 @@ const SearchPage = () => {
                       <span className="fw-bold">
                         रु: {Number(food.item_price || 0).toFixed(2)}
                       </span>
-                      <Link to="#" className="btn btn-outline-primary btn-sm">
-                        <FaShoppingBasket className="me-1" />
-                        Order Now
-                      </Link>
+                      {food.is_available ? (
+                        <Link to="#" className="btn btn-outline-primary btn-sm">
+                          <FaShoppingBasket className="me-1" />
+                          Order Now
+                        </Link>
+                      ) : (
+                        <div title="This food item is not availale right now.Please check later">
+                          <button className="btn btn-outline-secondary btn-sm">
+                            <FaTimes className="me-1" />
+                            Currently unavailable
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
