@@ -49,7 +49,7 @@ const PublicLayout = ({ children }) => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link">
+                <Link to="/register" className="nav-link">
                   <FaUserPlus className="me-1" /> Register
                 </Link>
               </li>

@@ -8,6 +8,7 @@ import ManageCategory from "./pages/ManageCategory";
 import AddFood from "./pages/AddFood";
 import ManageFood from "./pages/ManageFood";
 import SearchPage from "./pages/SearchPage";
+import Register from "./components/Register";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/add-food" element={<AddFood/>}></Route>
         <Route path="/manage-food" element={<ManageFood/>}></Route>
         <Route path="/search-food" element={<SearchPage/>}></Route>
+        <Route path="/register" element={<Register/>}></Route>
       </Routes>
     </BrowserRouter>
   );

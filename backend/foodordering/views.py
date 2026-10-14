@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import random
 from rest_framework.decorators import api_view, parser_classes
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
@@ -52,4 +53,12 @@ def food_search(request):
     query=request.GET.get('q','')
     foods=Food.objects.filter(item_name__icontains=query)
     serializer=FoodSerializer(foods,many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def random_foods(request):
+    foods=list(Food.objects.all())
+    random.shuffle(foods)
+    limited_foods=foods[0:8]
+    serializer=FoodSerializer(limited_foods,many=True)
     return Response(serializer.data)

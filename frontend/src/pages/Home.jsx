@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PublicLayout from "../components/PublicLayout";
 import "../styles/Home.css";
+import { Link, useLocation } from "react-router-dom";
+import { FaShoppingBasket, FaTimes } from "react-icons/fa";
 
 const Home = () => {
+  const BASEURL = import.meta.env.VITE_DJANGO_BASE_URL;
+
+  const [foods, setFoods] = useState([]);
+  useEffect(() => {
+    fetch(`${BASEURL}/api/random_foods/`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFoods(data);
+      });
+  },[]);
   return (
     <PublicLayout>
       <section
@@ -34,6 +46,68 @@ const Home = () => {
               Search
             </button>
           </form>
+        </div>
+      </section>
+      <section className="p-5">
+        <div className="container">
+          <h2 className="text-center mb-4">
+            Most Trending Dishes of this week:
+            <span className="badge bg-danger ms-2">Top Picks</span>
+          </h2>
+        </div>
+        <div className="row mx-2 mt-4">
+          {foods.length === 0 ? (
+            <p className="text-center">No Foods found</p>
+          ) : (
+            foods.map((food, index) => {
+              return (
+                <div key={food.id} className="col-md-4 mb-4">
+                  <div
+                    className="hover-effect rounded-3 overflow-hidden border-1"
+                    style={{
+                      backgroundColor: "rgba(175, 155, 155, 0.15)",
+                    }}
+                  >
+                    <img
+                      src={`${BASEURL}${food.image}`}
+                      alt={food.item_name || "Food item"}
+                      className="card-img-top"
+                      style={{ height: "180px", objectFit: "cover" }}
+                    />
+                    <div className="card-body p-2">
+                      <h5 className="card-title">
+                        <Link to="#">{food.item_name || "Food Item"}</Link>
+                      </h5>
+                      <p className="card-text text-muted">
+                        {food.item_description || "This is Description"}
+                      </p>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <span className="fw-bold">
+                          रु: {Number(food.item_price || 0).toFixed(2)}
+                        </span>
+                        {food.is_available ? (
+                          <Link
+                            to="#"
+                            className="btn btn-outline-primary btn-sm"
+                          >
+                            <FaShoppingBasket className="me-1" />
+                            Order Now
+                          </Link>
+                        ) : (
+                          <div title="This food item is not availale right now.Please check later">
+                            <button className="btn btn-outline-secondary btn-sm">
+                              <FaTimes className="me-1" />
+                              Currently unavailable
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          )}
         </div>
       </section>
     </PublicLayout>
