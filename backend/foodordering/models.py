@@ -5,7 +5,7 @@ class User(models.Model):
     last_name=models.CharField(max_length=50,null=True)
     email=models.EmailField(unique=True)
     mobile=models.CharField(max_length=15)
-    password=models.CharField(max_length=50)
+    password=models.CharField(max_length=300)
     reg_date=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

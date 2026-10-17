@@ -1,30 +1,72 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import PublicLayout from "./PublicLayout";
 import { FaPizzaSlice, FaUser, FaUserCheck } from "react-icons/fa";
-import{toast,ToastContainer} from 'react-toastify'
-import "react-toastify/dist/ReactToastify.css"
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const [formData,setFormData]=useState({
-    firstname:'',
-    lastname:'',
-    contactno:'',
-    email:'',
-    passoword:'',
-    confirmpassword:''
-  })
-  const navigate=useNavigate();
-  const handleChange=(e)=>{
-    const {name,value}=e.target;
+  const BASEURL = import.meta.env.VITE_DJANGO_BASE_URL;
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    contactno: "",
+    email: "",
+    password: "",
+    confirmpassword: "",
+  });
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-    setFormData((prev)=>({
+    setFormData((prev) => ({
       ...prev,
-      [name]:value
-    }))
-  }
+      [name]: value,
+    }));
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { firstname, lastname, contactno, email, password, confirmpassword } =
+      formData;
+    if (password !== confirmpassword) {
+      toast.error("password & confirmpassword donot match");
+      return;
+    }
+    try {
+      const response = await fetch(`${BASEURL}/api/register/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstname,
+          lastname,
+          contactno,
+          email,
+          password,
+        }),
+      });
+      const result = await response.json();
+      if (response.status == 201) {
+        toast.success(result.message || "You have successfully registered");
+        setFormData({
+          firstname: "",
+          lastname: "",
+          contactno: "",
+          email: "",
+          password: "",
+          confirmpassword: "",
+        });
+      } else {
+        toast.error(result.message || "Something Went Wrong");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error connecting to server");
+    }
+  };
   return (
     <PublicLayout>
+      <ToastContainer position="top-right" autoClose="3000"/>
       <div className="container py-4 py-md-5 px-3 px-md-4">
         <div className="row shadow-lg rounded-4 overflow-hidden mx-auto">
           {/* Registration Form */}
@@ -34,7 +76,7 @@ const Register = () => {
               User Registration:
             </h3>
 
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <input
                   name="firstname"
@@ -86,9 +128,9 @@ const Register = () => {
               <div className="mb-3">
                 <input
                   name="password"
-                  type="text"
+                  type="password"
                   className="form-control"
-                  value={formData.passoword}
+                  value={formData.password}
                   onChange={handleChange}
                   placeholder="Password"
                   required
@@ -98,7 +140,7 @@ const Register = () => {
               <div className="mb-3">
                 <input
                   name="confirmpassword"
-                  type="text"
+                  type="password"
                   className="form-control"
                   value={formData.confirmpassword}
                   onChange={handleChange}

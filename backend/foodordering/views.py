@@ -3,9 +3,10 @@ import random
 from rest_framework.decorators import api_view, parser_classes
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
-from .models import Category,Food
+from .models import Category,Food,User
 from .serializers import CategorySerializer,FoodSerializer
 from rest_framework.parsers import MultiPartParser,FormParser
+from django.contrib.auth.hashers import make_password
 
 @api_view(["POST"])
 def admin_login(request):
@@ -62,3 +63,16 @@ def random_foods(request):
     limited_foods=foods[0:8]
     serializer=FoodSerializer(limited_foods,many=True)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def register_user(request):
+    first_name=request.data.get('firstname')
+    last_name=request.data.get('lastname')
+    mobile=request.data.get('contactno')
+    email=request.data.get('email')
+    password=request.data.get('password')
+
+    if User.objects.filter(email=email).exists() or User.objects.filter(mobile=mobile).exists():
+        return Response({"message":"email or mobile already Registered,please login insted"},status=400);
+    User.objects.create(first_name=first_name,last_name=last_name,mobile=mobile,email=email,password=make_password(password))
+    return Response ({'message':"User Registered Successfully"},status=201)
