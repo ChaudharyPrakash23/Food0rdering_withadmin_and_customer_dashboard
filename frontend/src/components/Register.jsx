@@ -3,7 +3,7 @@ import PublicLayout from "./PublicLayout";
 import { FaPizzaSlice, FaUser, FaUserCheck } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 
 const Register = () => {
   const BASEURL = import.meta.env.VITE_DJANGO_BASE_URL;
@@ -56,6 +56,9 @@ const Register = () => {
           password: "",
           confirmpassword: "",
         });
+        setTimeout(()=>{
+          navigate('/login')
+        },1000)
       } else {
         toast.error(result.message || "Something Went Wrong");
       }
@@ -154,6 +157,15 @@ const Register = () => {
                 Create Account
               </button>
             </form>
+             <p className="mt-3 text-muted d-flex justify-content-center">
+              Already registered?
+              <Link
+                to="/login"
+                className="ms-1 text-primary text-decoration-none fw-semibold"
+              >
+                Login
+              </Link>
+            </p>
           </div>
 
           {/* Registration Image and Message */}
