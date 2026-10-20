@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import PublicLayout from "./PublicLayout";
 import { FaSignInAlt, FaUserCheck } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
@@ -27,7 +27,7 @@ const Login = () => {
     const { emailcont, password } = formdata;
 
     try {
-      const response = await fetch(`${BASEURL}/api/login`, {
+      const response = await fetch(`${BASEURL}/api/login/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emailcont, password }),
@@ -37,18 +37,20 @@ const Login = () => {
         toast.success(result.message || "Login Successful");
         localStorage.setItem("userId", result.userId);
         localStorage.setItem("userName", result.userName);
+        window.dispatchEvent(new Event("userLogin"));
         setFormData({
           emailcont: "",
           password: "",
         });
         setTimeout(() => {
           navigate("/");
-        }, 2000);
+        }, 100);
       } else {
         toast.error(result.message || "Invlaid Credentials");
       }
     } catch (error) {
       console.log(error);
+      toast.error("Error connecting to server")
     }
   };
   return (

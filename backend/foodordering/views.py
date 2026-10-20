@@ -6,7 +6,8 @@ from rest_framework.response import Response
 from .models import Category,Food,User
 from .serializers import CategorySerializer,FoodSerializer
 from rest_framework.parsers import MultiPartParser,FormParser
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password,check_password
+from django.db.models import Q
 
 @api_view(["POST"])
 def admin_login(request):
@@ -76,3 +77,16 @@ def register_user(request):
         return Response({"message":"email or mobile already Registered,please login insted"},status=400);
     User.objects.create(first_name=first_name,last_name=last_name,mobile=mobile,email=email,password=make_password(password))
     return Response ({'message':"User Registered Successfully"},status=201)
+
+@api_view(['POST'])
+def login_user(request):
+    emailorcontact=request.data.get('emailcont')
+    password=request.data.get('password')
+    try:
+        user=User.objects.get(Q(email=emailorcontact) | Q(mobile=emailorcontact))
+        if check_password(password,user.password):
+            return Response({"message":"LoggedIn successfully","userId":user.id,"userName":f"{user.first_name}{user.last_name}"},status=200)
+        else:
+            return Response({"message":"Invalid credentials"},status=401)
+    except User.DoesNotExist:
+        return Response({"message":"Invalid credentials"},status=401)
