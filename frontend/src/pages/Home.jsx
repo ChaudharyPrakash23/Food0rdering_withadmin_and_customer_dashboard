@@ -14,7 +14,7 @@ const Home = () => {
       .then((data) => {
         setFoods(data);
       });
-  },[]);
+  }, []);
   return (
     <PublicLayout>
       <section
@@ -110,8 +110,39 @@ const Home = () => {
           )}
         </div>
       </section>
+      <section className="p-5 bg-dark text-white">
+        <div className="container text-center">
+          <h2>Ordering in 3 simple steps</h2>
+          <div className="mt-4 row">
+            <div className="col-md-4">
+              <h4>1.Pick the dish you love</h4>
+              <p>
+                Explore 100s of mouth watering dishes and choose what crave you
+                most!
+              </p>
+            </div>
+            <div className="col-md-4">
+              <h4>2.Share your location</h4>
+              <p>Tell us where you are, and we will handle the rest</p>
+            </div>
+            <div className="col-md-4">
+              <h4>3.Enjoy doorstep delivery</h4>
+              <p>
+                Relax while your meal arrives fast and fresh -pay when it's
+                delivered!
+              </p>
+            </div>
+          </div>
+          <p>Pay easily with Cash on Delivery-Hassle free!</p>
+        </div>
+      </section>
+      <section className="p-5 bg-warning text-center text-dark">
+          <h4>Give us chance to serve you!</h4>
+          <Link to="" className="btn btn-dark btn-lg">
+            Browse full menu
+          </Link>
+      </section>
     </PublicLayout>
   );
 };
-
 export default Home;
