@@ -87,7 +87,7 @@ const Home = () => {
                         </span>
                         {food.is_available ? (
                           <Link
-                            to="#"
+                            to={`/food/${food.id}`}
                             className="btn btn-outline-primary btn-sm"
                           >
                             <FaShoppingBasket className="me-1" />
