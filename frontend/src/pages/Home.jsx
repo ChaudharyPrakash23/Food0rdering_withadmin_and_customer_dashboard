@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PublicLayout from "../components/PublicLayout";
 import "../styles/Home.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { FaShoppingBasket, FaTimes } from "react-icons/fa";
 
 const Home = () => {
@@ -76,7 +76,7 @@ const Home = () => {
                     />
                     <div className="card-body p-2">
                       <h5 className="card-title">
-                        <Link to="#">{food.item_name || "Food Item"}</Link>
+                        <Link to={`/food/${food.id}/`}>{food.item_name || "Food Item"}</Link>
                       </h5>
                       <p className="card-text text-muted">
                         {food.item_description || "This is Description"}
@@ -87,7 +87,7 @@ const Home = () => {
                         </span>
                         {food.is_available ? (
                           <Link
-                            to={`/food/${food.id}`}
+                            to={`/food/${food.id}/`}
                             className="btn btn-outline-primary btn-sm"
                           >
                             <FaShoppingBasket className="me-1" />

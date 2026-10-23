@@ -8,6 +8,7 @@ from .serializers import CategorySerializer,FoodSerializer
 from rest_framework.parsers import MultiPartParser,FormParser
 from django.contrib.auth.hashers import make_password,check_password
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 
 @api_view(["POST"])
 def admin_login(request):
@@ -90,3 +91,10 @@ def login_user(request):
             return Response({"message":"Invalid credentials"},status=401)
     except User.DoesNotExist:
         return Response({"message":"Invalid credentials"},status=401)
+
+@api_view(['GET'])
+def food_detail(request,id):
+    # food=Food.objects.get(id=id) this can also be done
+    food=get_object_or_404(Food,id=id)
+    serializer=FoodSerializer(food)
+    return Response(serializer.data)
