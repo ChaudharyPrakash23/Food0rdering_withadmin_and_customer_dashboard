@@ -53,6 +53,7 @@ const Login = () => {
       toast.error("Error connecting to server")
     }
   };
+  
   return (
     <PublicLayout>
       <ToastContainer position="top-right" autoClose="3000" />

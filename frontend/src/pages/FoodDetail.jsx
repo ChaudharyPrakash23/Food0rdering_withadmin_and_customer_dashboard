@@ -1,23 +1,55 @@
 import React, { useState, useEffect } from "react";
 import PublicLayout from "../components/PublicLayout";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { FaCartPlus, FaTimes, FaTruck } from "react-icons/fa";
+
 const FoodDetail = () => {
   const userId = localStorage.getItem("userId");
   const BASEURL = import.meta.env.VITE_DJANGO_BASE_URL;
   const [food, setFood] = useState([""]);
   const { id } = useParams();
+  const navigate=useNavigate();
   useEffect(() => {
     fetch(`${BASEURL}/api/foods/${id}/`)
       .then((res) => res.json())
       .then((data) => {
         setFood(data);
       });
-  }, []);
+  }, [id]);
+
+   const hadleAddToCart = async (e) => {
+    if(!userId){
+      navigate("/login")
+      return;
+    }
+    try {
+      const response = await fetch(`${BASEURL}/api/cart/add/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          userId:userId,
+          foodId:food.id 
+        }),
+      });
+      const result = await response.json();
+      if (response.status == 200) {
+        toast.success(result.message || "Item added to cart Successfully");
+      } else {
+        toast.error(result.message || "Somethin went wrong");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error connecting to server")
+    }
+  };
+
   if (!food) return <div>Food item donot matach...</div>;
 
   return (
     <PublicLayout>
+      <ToastContainer position="top-right" autoClose={3000} />
       <div className="container py-5">
         <div
           className="row align-items-center g-4 p-3 p-md-4 rounded-4 shadow-sm"
@@ -79,6 +111,7 @@ const FoodDetail = () => {
             {food.is_available ? (
               <button
                 type="button"
+                onClick={hadleAddToCart}
                 className="btn btn-warning btn-lg rounded-3 fw-semibold px-4 py-3 w-100"
               >
                 <FaCartPlus className="me-2" />

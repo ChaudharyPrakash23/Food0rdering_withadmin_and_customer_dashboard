@@ -3,12 +3,13 @@ import random
 from rest_framework.decorators import api_view, parser_classes
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
-from .models import Category,Food,User
+from .models import Category,Food,User,Order
 from .serializers import CategorySerializer,FoodSerializer
 from rest_framework.parsers import MultiPartParser,FormParser
 from django.contrib.auth.hashers import make_password,check_password
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from django.db.models import F
 
 @api_view(["POST"])
 def admin_login(request):
@@ -98,3 +99,32 @@ def food_detail(request,id):
     food=get_object_or_404(Food,id=id)
     serializer=FoodSerializer(food)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def add_to_cart(request):
+    user_id = request.data.get('userId')
+    food_id = request.data.get('foodId')
+
+    if not user_id or not food_id:
+        return Response({"message": "userId and foodId are required"}, status=400)
+
+    try:
+        user = User.objects.get(id=user_id)
+        food = Food.objects.get(id=food_id)
+    except User.DoesNotExist:
+        return Response({"message": "User not found"}, status=404)
+    except Food.DoesNotExist:
+        return Response({"message": "Food not found"}, status=404)
+
+    order, created = Order.objects.get_or_create(
+        user=user,
+        food=food,
+        is_order_Placed=False,
+        defaults={"quantity": 1},
+    )
+
+    if not created:
+        order.quantity = F('quantity') + 1
+        order.save(update_fields=['quantity'])
+
+    return Response({"message": "Food added to cart successfully"}, status=200)

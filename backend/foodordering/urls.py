@@ -12,4 +12,5 @@ urlpatterns=[
     path('register/',views.register_user),
     path('login/',views.login_user),
     path('foods/<int:id>/',views.food_detail),
+    path('cart/add/',views.add_to_cart)
 ]
