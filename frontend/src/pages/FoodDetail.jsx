@@ -36,6 +36,9 @@ const FoodDetail = () => {
       const result = await response.json();
       if (response.status == 200) {
         toast.success(result.message || "Item added to cart Successfully");
+        setTimeout(()=>{
+          navigate("/Cart")
+        },500)
       } else {
         toast.error(result.message || "Somethin went wrong");
       }
